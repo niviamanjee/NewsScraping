@@ -18,9 +18,20 @@ $(".save").on("click", function (event) {
 
 $("#saved").on("click", function () {
     $.ajax({
-        url: "/articles/saved/",
+        url: "/saved",
         method: "GET"
     }).then(function (db) {
         console.log(db)
+        location.replace("/saved")
     })
+})
+
+$(".addNote").on("click", function () {
+
+    var id = $(this).attr("data-id")
+    console.log(id)
+
+
+    $('.modal').modal();
+    $('input#input_text, textarea#textarea2').characterCounter();
 })

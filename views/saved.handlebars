@@ -1,3 +1,4 @@
+<h3 id="savedHeading" style="align-self: center;">Your Saved Articles</h3>
 <div class="row">
     <div class="col s12 m7">
         {{#each articles}}
@@ -13,7 +14,8 @@
             </div>
             <div class="card-action">
                 <a href="{{this.link}}" target="_blank">View Article</a>
-                {{!-- <button class="save" data-id="{{this._id}}">Save Article</button> --}}
+                <a class="waves-effect waves-light btn modal-trigger addNote" data-id="{{this._id}}" href="#modal1">Add
+                    Note</a>
             </div>
         </div>
 

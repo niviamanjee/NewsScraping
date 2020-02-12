@@ -38,17 +38,17 @@ router.get("/scrape", function (req, res) {
             article.image = $(element)
                 .children("figure.thumb-image")
                 .children("div.homeThumb")
-                .children("div.imagewrap").children("a").children("img.img").attr("src").trim();
+                .children("div.imagewrap").children("a").children("img.img").attr("src");
             // .children("a").attr("href");
             // .attr("alt");
             article.title = $(element)
-                .children(".story-text").children("a").children("h3.title").text().trim();
+                .children(".story-text").children("a").children("h3.title").text();
 
             article.summary = $(element)
-                .children(".story-text").children("a").children("p.teaser").text().trim();
+                .children(".story-text").children("a").children("p.teaser").text();
 
             article.link = $(element)
-                .children(".story-text").children("a").attr("href").trim();
+                .children(".story-text").children("a").attr("href");
             // article.push({ image: image, title: title, summary: summary, link: link })
             console.log(article)
 
@@ -85,6 +85,18 @@ router.get("/articles", function (req, res) {
         });
 });
 
+router.get("/saved", function (req, res) {
+    db.Article.find({ reserve: true }).then(function (data) {
+        console.log(data)
+        var hbsObjectSaved = {
+            articles: data
+        };
+
+        // res.json(hbsObjectSaved)
+        res.render("saved", hbsObjectSaved)
+    })
+
+})
 // Route for grabbing a specific Article by id, populate it with it's note
 router.get("/articles/:id", function (req, res) {
     // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
@@ -128,14 +140,6 @@ router.put("/articles/:id", function (req, res) {
         })
 })
 
-router.get("/articles/saved/", function (req, res) {
-    db.Article.find({ reserve: true }).then(function (data) {
-        console.log(data)
-        var hbsObjectSaved = {
-            articles: data
-        };
-        res.render("saved", hbsObjectSaved)
-    })
-})
+
 
 module.exports = router;
